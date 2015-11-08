@@ -1,0 +1,176 @@
+<!--首先引入base.html -->
+{% extends "qa/base.html" %}
+
+{% load staticfiles %}
+
+{% block main %}
+    
+<!--引入head.html -->
+    {% include 'qa/head.html' %}
+<!--head.html结束 -->
+
+<!--左侧left.html -->
+    {% include "qa/left.html" %}
+<!--left.html结束 -->
+
+
+
+<!--变动区代码 -->
+   <div class="col-md-8 main-content">
+        <div class="row select-category">
+            <div class="col-md-6 col-xs-6 current-category">
+                <span>
+                    {{ question_user }}       </span>
+            </div>
+                    </div><!-- END SELECT-CATEGORY -->
+        <div class="row user-statistic highlight">
+            <div class="col-md-5 col-xs-12 user-info">
+                <span class="avatar-80">
+                    <img src="{{ MEDIA_URL }}{{ question_user.avatar }}" class="avatar" alt="">                </span>
+                                <p class="contact-block">
+                    <button class="inbox" id="inbox">
+                        Contact                    </button>
+                </p>
+                                <ul>
+                    <li class="name">
+                        {{ question_user }}                   </li>
+                    <li class="location">
+                        <i class="fa fa-map-marker"></i>
+                        Earth                    </li>
+                    <li class="email">
+                        <i class="fa fa-envelope"></i>
+                        Email is hidden.                    </li>
+                                                                            </ul>
+            </div>
+            <div class="col-md-7 col-xs-12 user-post-count">
+                <div class="row">
+                    <div class="col-md-4 col-xs-4 question-cat">
+                        <span title="525" class="user-badge" style="background-color:#ffbf00;">Vice Professor</span>                        <br>
+                        <span class="points-count">
+                        525                        </span>
+                        <span class="star">
+                            <i class="fa fa-star"></i><br>
+                            points                        </span>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <p class="questions-count">
+                            问题<br>
+                            <span>{{ user_question_count }}</span>
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <p class="answers-count">
+                            回答<br>
+                            <span>{{ user_answer_count }}</span>
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12 description">
+                                            </div>
+                </div>
+            </div>
+        </div><!-- END USER-STATISTIC -->
+        <div class="row question-filter">
+            <div class="col-md-12 sort-questions">
+                <ul>
+                    <li><a class="active" href="javascript:void(0)" name="get_question">问题</a></li>
+                    <li><a class="" href="javascript:void(0)" name="get_answer">回答</a></li>
+                </ul>
+            </div>
+        </div><!-- END QUESTIONS-FILTER -->
+        <div class="main-questions-list">
+            <ul id="main_questions_list">
+
+            {% for question in user_question_list %}
+                
+           
+
+               <li class="question-item post-36 question type-question status-publish hentry question_category-movie qa_tag-car-2 qa_tag-commercial qa_tag-lamborghini qa_tag-movie-2 qa_tag-tv" data-id="36">
+    <div class="col-md-8 col-xs-8 q-left-content">
+        <div class="q-ltop-content">
+            <h2>
+                <a href="{% url 'qa:detail' question.id %}" class="question-title" target="blank">{{ question.title }}</a>
+            </h2>
+        </div>
+        <div class="q-lbtm-content">
+            <div class="question-excerpt">
+                <p>{{ question.description }}</p>
+            </div>
+            <div class="question-cat">
+                <ul class="question-tags">
+                    {% for tag in question.tag.all %}
+                        <li><a class="q-tag" href="?tag={{ tag.name }}">{{ tag.name }}</a></li>
+                    {% endfor %}                   
+                </ul>
+                <div class="clearfix"></div>
+                <a href="{% url 'qa:user_center' question.user %}">
+                    <span class="author-avatar">
+                        <img src="{{ MEDIA_URL }}{{question.user.avatar}}" class="avatar" alt="">                    </span>
+                    <span class="author-name">{{ question.user }}</span>
+                </a>
+                <span title="525" class="user-badge" style="background-color:#ffbf00;">Vice Professor</span>                <span class="question-time">
+                    {{ question.inputtime }}             发表在   </span>
+                <span class="question-category">
+                                    <a href="#">{{ question.category }}</a>
+                                </span>            </div>
+        </div>
+    </div><!-- end left content -->
+    <div class="col-md-4 col-xs-4 q-right-content">
+        <ul class="question-statistic">
+            <li>
+                <span class="question-views">
+                    11                </span>
+                views            </li>
+            <li {% for answer in question.answer_set.all %}{% if answer.user == req.user %}class="active"{% endif %}{% endfor %}><span class="question-answers">{{ question.answer_set.all.count }}</span>答案</li>
+            <li>
+                <span class="question-votes">
+                    0                </span>
+                votes            </li>
+        </ul>
+    </div><!-- end right content -->
+</li>     
+
+<!--ajax加载答案部分-->
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery("a[name='get_answer']").click(function(){
+            jQuery(".main-questions-list").load("{% url 'qa:user_answer' question.user %}");
+            jQuery("a[name='get_answer']").addClass("active");
+            jQuery("a[name='get_question']").removeClass("active");
+        });
+
+    });
+
+    jQuery(document).ready(function(){
+        jQuery("a[name='get_question']").click(function(){
+            jQuery(".main-questions-list").load("{% url 'qa:user_question' question.user %}");
+            jQuery("a[name='get_question']").addClass("active");
+            jQuery("a[name='get_answer']").removeClass("active");
+        });
+
+    });
+
+</script>
+
+
+ {% endfor %}
+
+
+     </ul>
+        </div><!-- END MAIN-QUESTIONS-LIST -->
+        <div class="row paginations home">
+            <div class="col-md-12">
+                            </div>
+        </div><!-- END MAIN-PAGINATIONS -->
+    </div>
+
+
+
+<!--变动区代码结束 -->
+
+<!--右侧right.html -->
+    {% include "qa/right.html" %}
+<!--right.html结束 -->
+
+{% endblock main %}

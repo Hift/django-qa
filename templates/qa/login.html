@@ -1,0 +1,85 @@
+
+<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+				<h4 class="modal-title modal-title-sign-in" id="myModalLabel">请登录</h4>
+			</div>
+			<div class="modal-body">
+				<!--<form id="signin_form" class="form_modal_style">
+					<label for="username">
+						Username or Email					</label>
+					<input type="text" class="email_user" name="username" id="username">
+
+					<label for="password">
+						Password					</label>
+					<input type="password" class="password_user" id="password" name="password">
+
+					<a href="javascript:void(0)" class="link_forgot_pass">Forgot password</a>
+					<div class="clearfix"></div>
+					<input type="submit" name="submit" value="Sign in" class="btn-submit">
+
+										<a href="javascript:void(0)" class="link_sign_up">Sign up</a>
+
+					<ul class="social-icon clearfix">
+						
+												<li class="gp">
+							<a id="signinButton" href="http://www.enginethemes.com/demo/qaengine/#" class="sc-icon color-google">
+								<i class="fa fa-google-plus-square"></i>
+							</a>
+						</li>
+										
+												<li class="tw">
+							<a href="http://www.enginethemes.com/demo/qaengine?action=twitterauth" class="sc-icon color-twitter">
+								<i class="fa fa-twitter-square"></i>
+							</a>
+						</li>
+											
+												<li class="fb">
+							<a href="http://www.enginethemes.com/demo/qaengine/#" id="facebook_auth_btn" class="sc-icon color-facebook">
+								<i class="fa fa-facebook-square"></i>
+							</a>
+						</li>
+											</ul>
+									</form>
+
+								<form id="signin_form" class="form_modal_style">
+					<label for="username">
+						Username					</label>
+					<input type="text" class="name_user" name="username" id="username">
+
+					<label for="email">
+						Email					</label>
+					<input type="text" class="email_user" name="email" id="email">
+
+					<label for="password1">
+						Password					</label>
+					<input type="password" class="password_user_signup" id="password1" name="password">
+
+					<label for="re_password">
+						Retype Password					</label>
+					<input type="password" class="repeat_password_user_signup" id="re_password" name="re_password">
+
+					
+					<div class="clearfix"></div>
+-->
+				<form id="signin_form" method="POST" action="{% url 'qa:login' %}" class="form_modal_style">
+                    
+                    {% csrf_token %}
+                    {{ login_Form }}
+
+					<a href="javascript:void(0)" class="link_forgot_pass">Forgot password</a>
+					<div class="clearfix"></div>
+					<input type="submit" name="submit" value="登录" class="btn-submit">
+
+					<a href="javascript:void(0)" class="link_sign_up">注册</a>
+					<ul class="social-icon clearfix">
+						<li class="gp"><a id="signinButton" href="#" class="sc-icon color-google"><i class="fa fa-google-plus-square"></i></a></li>
+						<li class="tw"><a href="#" class="sc-icon color-twitter"><i class="fa fa-twitter-square"></i></a>
+						</li>
+						<li class="fb"><a href="#" id="facebook_auth_btn" class="sc-icon color-facebook"><i class="fa fa-facebook-square"></i></a></li>
+					</ul>
+				</form>
+			</div>
+		</div>
+	</div>

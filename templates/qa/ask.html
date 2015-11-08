@@ -1,0 +1,51 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <i class="fa fa-times"></i>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">我要提问</h4>
+        </div>
+        <div class="modal-body">
+            <form id="submit_question" action="{% url 'qa:ask' %}" method="POST" onkeydown="if(event.keyCode==13)return false;">
+                    
+                    {% csrf_token %}
+
+                    {{ question_Form.title }}
+                    {{ question_Form.description }} 
+                <div class="select-categories">
+                    {{ question_Form.category }}
+                </div>
+                  
+                
+                    {{ question_Form.content }}
+                    {{ question_Form.inputtime }}
+
+                    {{ question_Form.tag }}
+                    
+                <div id="question-tags-container">
+                        
+                        <input type="text" class="submit-input tags-input" id="question_tags" name="question_tags" placeholder="标签(最多5个)">
+                        <span class="tip-add-tag">按Enter键添加新标签</span>
+                        <ul class="tags-list" id="tag_list"></ul>
+                </div>
+
+
+                    
+            <div class="clearfix"></div>
+
+
+
+                  
+                        <div class="clearfix"></div>
+                    
+                    
+                   <button type="submit" class="btn-submit-question">
+                        提交问题                 </button>
+                    <p class="term-texts">
+                        如果您提交您的问题，表明您已经阅读并同意<a target="_blank" href="#">用户条款</a>和<a target="_blank" href="#">服务声明</a>
+                    </p>
+                </form> 
+            </div>
+        </div>   
+    </div>

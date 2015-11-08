@@ -1,0 +1,58 @@
+<div class="col-md-12 col-xs-12" id="header_sidebar">
+</div>
+<div class="col-md-2 disable-mobile left-sidebar">
+        <div class="widget widget-btn">                                            
+        	<button type="button" data-toggle="modal" class="action ask-question login-url" {% if not user.is_authenticated %} 
+            data-target="#login_register" {% else %}
+            data-target="#modal_submit_questions" {% endif %}>
+        <i class="fa fa-plus"></i> 我要提问</button>
+        </div><!-- END BUTTON MODAL QUESTION -->
+
+
+<!--插入弹出框-->
+<!-- MODAL SUBMIT QUESTIONS -->
+<div class="modal fade modal-submit-questions" id="modal_submit_questions" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+</div>
+<!-- MODAL SUBMIT QUESTIONS -->
+
+
+<div class="widget widget-menus">
+    <div class="menu-left-menu-container">
+    <ul id="menu-left-menu-1" class="menu">
+        <li class="fa-question-circle menu-item menu-item-type-custom menu-item-object-custom menu-item-1765"><a href="#"><i class="fa fa-question-circle"></i>问题</a></li>
+        <li class="fa-tags menu-item menu-item-type-post_type menu-item-object-page menu-item-183"><a href="#"><i class="fa fa-tags"></i>标签</a></li>
+        <li class="fa-trophy menu-item menu-item-type-post_type menu-item-object-page menu-item-18"><a href="#"><i class="fa fa-trophy"></i>徽章</a></li>
+        <li class="fa-th-list menu-item menu-item-type-post_type menu-item-object-page menu-item-1742"><a href="#"><i class="fa fa-th-list"></i>分类</a></li>
+        <li class="fa-users menu-item menu-item-type-post_type menu-item-object-page menu-item-1743"><a href="#"><i class="fa fa-users"></i>用户</a></li>
+    </ul>
+</div>        
+        </div><!-- END LEFT MENU -->
+
+<div class="clearfix"></div>
+        	<!-- SOCIAL LINKs -->
+    <div class="social-links">
+        <ul>
+        	            <li>
+                <a href="https://www.facebook.com/EngineThemes" target="_blank" class="social fb">
+                    <i class="fa fa-facebook"></i>
+                </a>
+            </li>
+                        <li>
+                <a href="https://twitter.com/enginewpthemes" target="_blank" class="social tw">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+                        <li>
+                <a href="https://plus.google.com/+EngineThemes" target="_blank" class="social gg">
+                    <i class="fa fa-google"></i>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    <!-- END / SOCIAL LINKs -->
+	        <div class="copyright">
+        	©2015 小波制作 <br>
+			<a href="#">Term &amp; Privacy</a>
+        </div>
+    </div><!-- END LEFT-SIDEBAR -->

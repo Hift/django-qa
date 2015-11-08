@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>注册</title>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/ajax.js"></script>
+<link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css" media="all">
+<style type="text/css">
+.form-horizontal{width: 640px;height: auto;display: block;margin: 0 auto;border: #DCDCDC 1px solid;padding: 40px;background-color: #fff;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 align="center">
+	用户注册
+</h1>
+<form action="{% url 'qa:reg' %}" method="post">
+                {% csrf_token %}
+				<ul class="left-form">
+					<h2>New Account:</h2>
+					<li>
+						{{ reg_Form.username }}
+						<div class="clear"> </div>
+					</li> 
+					<li>
+						{{ reg_Form.email }}
+						<div class="clear"> </div>
+					</li> 
+					<li>
+						{{ reg_Form.url }}
+						<div class="clear"> </div>
+					</li> 
+					<li>
+                        {{ reg_Form.password }}
+						<div class="clear"> </div>
+					</li>
+                    <input type="hidden" name="source_url" value="{{ request.META.HTTP_REFERER }}">
+					<input type="submit" value="Create And Login">
+					<div class="clear"> </div>
+				</ul>
+				<div class="clear"> </div>
+			</form>
+</div>
+<input type="button" value="测试" id="btn" />
+<h2>显示的内容如下</h2>
+<div id="result"></div>
+<h2>结果</h2>
+<div id="dictionary"></div>
+
+</body>
+</html>

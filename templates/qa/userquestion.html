@@ -1,0 +1,49 @@
+ <ul id="main_questions_list">
+{% for question in user_question_list %}
+<li class="question-item post-36 question type-question status-publish hentry question_category-movie qa_tag-car-2 qa_tag-commercial qa_tag-lamborghini qa_tag-movie-2 qa_tag-tv" data-id="36">
+    <div class="col-md-8 col-xs-8 q-left-content">
+        <div class="q-ltop-content">
+            <h2>
+                <a href="{% url 'qa:detail' question.id %}" class="question-title" target="blank">{{ question.title }}</a>
+            </h2>
+        </div>
+        <div class="q-lbtm-content">
+            <div class="question-excerpt">
+                <p>{{ question.description }}</p>
+            </div>
+            <div class="question-cat">
+                <ul class="question-tags">
+                    {% for tag in question.tag.all %}
+                        <li><a class="q-tag" href="?tag={{ tag.name }}">{{ tag.name }}</a></li>
+                    {% endfor %}                   
+                </ul>
+                <div class="clearfix"></div>
+                <a href="{% url 'qa:user_center' question.user %}">
+                    <span class="author-avatar">
+                        <img src="{{ MEDIA_URL }}{{question.user.avatar}}" class="avatar" alt="">                    </span>
+                    <span class="author-name">{{ question.user }}</span>
+                </a>
+                <span title="525" class="user-badge" style="background-color:#ffbf00;">Vice Professor</span>                <span class="question-time">
+                    {{ question.inputtime }}             发表在   </span>
+                <span class="question-category">
+                                    <a href="#">{{ question.category }}</a>
+                                </span>            </div>
+        </div>
+    </div><!-- end left content -->
+    <div class="col-md-4 col-xs-4 q-right-content">
+        <ul class="question-statistic">
+            <li>
+                <span class="question-views">
+                    11                </span>
+                views            </li>
+             <li {% for answer in question.answer_set.all %}{% if answer.user == req.user %}class="active"{% endif %}{% endfor %}><span class="question-answers">{{ question.answer_set.all.count }}</span>答案</li>
+            <li>
+                <span class="question-votes">
+                    0                </span>
+                votes            </li>
+        </ul>
+    </div><!-- end right content -->
+</li>     
+
+ {% endfor %}
+</ul>

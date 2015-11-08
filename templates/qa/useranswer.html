@@ -1,0 +1,48 @@
+<ul id="main_questions_list">
+
+{% for answer in user_answer_list %}
+    
+
+<li class="answer-item question-item post-97 answer type-answer status-publish hentry" data-id="97">
+    <div class="col-md-8 q-left-content">
+        <div class="q-ltop-content title-answer-style">
+            <a href="{% url 'qa:detail' answer.question.id %}" class="question-title" target="blank">
+                回答: {{ answer.question }}          </a>
+        </div>
+        <div class="q-lbtm-content">
+            <div class="question-cat">
+                <span class="author-avatar"><img src="{{ MEDIA_URL }}{{ answer.question.user.avatar }}" class="avatar" alt=""></span>
+                <span title="525" class="user-badge" style="background-color:#ffbf00;">副教授</span>
+                <span class="question-time">{{ answer.question.inputtime }}提问在</span>
+                <span class="question-category"><a href="#">{{ answer.question.category }}</a>上</span>
+                <ul class="question-tags">
+                    {% for tag in answer.question.tag.all %}
+                         <li><a class="q-tag" href="?tag={{ tag.name }}">{{ tag.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="quote-answer-style">
+            <div>
+                <span class="icon-quote"></span>
+                    {{ answer.answer_content }}
+            </div>
+                    </div>
+    </div><!-- end left content -->
+    <div class="col-md-4 q-right-content">
+        <ul class="question-statistic">
+            <li>
+                <span class="question-views">
+                    52                </span>
+                views            </li>
+                <!--使用一个反向查询-->
+             <li {% if answer.user == req.user %}class="active"{% endif %}><span class="question-answers">{{ answer.question.answer_set.all.count }}</span>答案</li>
+            <li>
+                <span class="question-votes">
+                    2                </span>
+                votes            </li>
+        </ul>
+    </div><!-- end right content -->
+</li>
+{% endfor %}
+</ul>

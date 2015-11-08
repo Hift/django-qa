@@ -1,0 +1,70 @@
+{% load staticfiles %}
+
+			<header id="header">
+				<div class="col-md-2 col-xs-2" id="logo">
+					<a href="{{ SITE_URL }}">
+						<img src="{% static 'img/logo.png' %}">							
+					</a>
+				</div><!-- logo -->
+				<div id="menu_qa" class="col-md-8 col-xs-8">
+					<div class="header-menu">
+                        <ul>
+                            <li class="#"><a href="#">首页</a></li>
+							<li class="#"><a href="#">关于我们</a></li>
+							<li class="#"><a href="#">博客</a></li>
+							<li class="#"><a href="#">团队</a></li>
+							<li class="#"><a href="#">联系我们</a></li>
+                        </ul>
+                    </div><!-- menu -->
+                    <div class="header-search-wrapper">
+                        	<section class="buttonset">
+                                <button id="showLeftPush"><i class="fa fa-question"></i></button>
+                                <button id="showRightPush"><i class="fa fa-bar-chart-o"></i></button>
+
+                                <!-- <button id="showLeft"><i class="fa fa-question"></i></button>
+								<button id="showRight"><i class="fa fa-bar-chart-o"></i></button> -->
+								<button id="showTop"><i class="fa fa-list"></i></button>
+                            </section>
+                        	                            <form id="header_search" method="GET" action="http://www.enginethemes.com/demo/qaengine" class="disable-mobile-search">
+                                <input type="text" name="keyword" value="" placeholder="搜索一下" autocomplete="off">
+                                <i class="fa fa-search"></i>
+                                <div id="search_preview" class="search-preview empty"></div>
+                            </form>
+                        </div><!-- search -->
+					</div>
+					
+					{% if not user.is_authenticated %}
+						<div id="login_qa" class="col-md-2 col-xs-2 btn-group">
+							<a class="login-url" href="#" data-toggle="modal" data-target="#login_register">
+							注册/登录</a>
+						</div>
+					{% else %}
+					<div id="login_qa" class="col-md-2 col-xs-2 btn-group header-avatar ">
+						<span class="expand dropdown-toggle" type="span" data-toggle="dropdown">
+						<a href="javascript:void(0)" class="dropdown-account ">
+                           <span class="avatar"><img src="{{ MEDIA_URL }}{{ user.avatar }}" class="avatar" alt=""></span>
+                           <span class="display_name">{{ user.username }}</span>
+                           <span class="icon-down"><i class="fa fa-chevron-circle-down"></i></span>
+                        </a>
+						</span>
+						<ul class="dropdown-menu dropdown-profile">
+							<li><a href="#"><i class="fa fa-user"></i> 用户信息</a></li>
+							<li><a href="javascript:void(0)" class="open-edit-profile edit_profile"><i class="fa fa-cog"></i>用户设置							</a>
+							</li>
+
+							<li>
+								<a href="{% url 'qa:loginout' %}">
+									<i class="fa fa-power-off"></i> 注销	</a>
+							</li>
+						</ul>
+						</div>
+					{% endif %}
+					<!-- avatar -->
+
+
+
+	<!-- MODAL LOGIN / REGISTER -->
+    <div class="modal fade modal-submit-questions" id="login_register" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	</div>	
+	<!-- MODAL LOGIN / REGISTER -->
+</header><!-- END HEADER -->

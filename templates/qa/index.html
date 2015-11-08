@@ -1,0 +1,117 @@
+<!--首先引入base.html -->
+{% extends "qa/base.html" %}
+
+{% load staticfiles %}
+
+{% block main %}
+    
+<!--引入head.html -->
+    {% include "qa/head.html" %}
+<!--head.html结束 -->
+
+<!--左侧left.html -->
+    {% include "qa/left.html" %}
+<!--left.html结束 -->
+
+
+
+<!--变动区代码 -->
+    <div class="col-md-8 main-content">
+                <div class="clearfix"></div>
+        <div class="row select-category">
+            <div class="col-md-6 col-xs-6 current-category">
+                <span>所有问题</span>
+            </div>
+            <div class="col-md-6 col-xs-6"  >
+                <div class="select-categories-wrapper" id="to_add2">
+                    <div class="select-categories" id="p_change">
+                        {{ category_Form.category }}
+                    </div>
+                </div>
+            </div>
+        </div><!-- END SELECT-CATEGORY -->
+<div class="row q-filter-waypoints collapse" id="q_filter_waypoints" style="display: none;">
+    <div class="col-md-2 col-xs-2">
+        <button type="button" data-toggle="modal" class="action ask-question" data-target="#modal_submit_questions"><i class="fa fa-plus"></i> 我要提问</button>
+    </div>
+    <div class="col-md-8 col-sm-10 col-xs-10">
+        <div class="row">
+            <div class="col-md-2 hidden-xs hidden-sm">
+                <span class="q-f-title">所有问题</span>
+            </div><!-- END TITLE -->
+            <div class="col-md-5 col-sm-6 col-xs-6">
+                <ul class="q-f-sort">
+                    <li><a class="active" href="{% static 'css/问答系统.html">最新</a></li>
+                    <li><a class="" href="#">最热</a></li>
+                    <li><a class="" href="#">待回答</a></li>
+                </ul><!-- END FILTER -->
+            </div>
+                <div class="col-md-5 col-sm-6 col-xs-6 categories-wrapper">
+                        <div class="select-categories-wrapper" id="to_add1">
+                        
+                        </div><!-- END SELECT CATEGORIES -->
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="row question-filter" id="question_filter">
+            <div class="col-md-6 col-xs-6 sort-questions">
+                <ul>
+                    <li><a class="active" href="{% static 'css/问答系统.html">最新</a></li>
+                    <li><a class="" href="#">最热</a></li>
+                    <li><a class="" href="#">待回答</a></li>
+                </ul>
+            </div>
+
+        </div><!-- END QUESTIONS-FILTER -->
+    <div class="main_page_list">
+        <div class="main-questions-list">
+            <ul id="main_questions_list">
+                {% include "qa/index_ajax.html" %}
+            </ul>
+
+    {% block js %}
+    {{ block.super }}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'endless_pagination/js/endless-pagination.js' %}"></script>
+    <script>
+    jQuery.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 300
+        });
+    </script>
+    {% endblock %}
+
+</div><!-- END MAIN-QUESTIONS-LIST -->
+
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery("#post_c").change(function(){
+            var name_id = jQuery("#post_c").find("option:selected").text();
+            jQuery("#main_questions_list").load("{% url 'qa:category' %}?name=" + name_id);
+            var hh = jQuery(document).scrollTop();
+
+            console.log(hh)
+            jQuery('#main_questions_list').animate({Top:-100},1000);
+            
+        });
+    });
+
+</script>
+
+
+<!-- END MAIN-PAGINATIONS -->
+        <div class="clearfix"></div>
+</div>
+
+
+
+<!--变动区代码结束 -->
+
+<!--右侧right.html -->
+    {% include "qa/right.html" %}
+<!--right.html结束 -->
+
+{% endblock main %}

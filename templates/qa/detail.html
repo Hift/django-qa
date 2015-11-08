@@ -1,0 +1,419 @@
+<!--首先引入base.html -->
+{% extends "qa/base.html" %}
+{% load tagging_tags %}
+{% load staticfiles %}
+
+{% block main %}
+    
+<!--引入head.html -->
+    {% include 'qa/head.html' %}
+<!--head.html结束 -->
+
+<!--左侧left.html -->
+    {% include "qa/left.html" %}
+<!--left.html结束 -->
+
+
+
+<!--变动区代码 -->
+
+<!--插入的-->
+<div class="col-md-8 main-content single-content">
+        <div class="row select-category single-head">
+            <div class="col-md-2 col-xs-2">
+                <span class="back">
+                    <i class="fa fa-angle-double-left"></i> <a href="{% url 'qa:index' %}">首页</a>
+                </span>
+            </div>
+            <div class="col-md-8 col-xs-8">
+                <h1>{{ question.title }}</h1>
+            </div>
+        </div><!-- END SELECT-CATEGORY -->
+        <div id="question_content" class="row question-main-content question-item" data-id="78">
+            <!-- Vote section -->
+            <div class="col-md-2 col-xs-2 vote-block">
+    <!-- vote group -->
+    <ul>
+    <!-- vote up -->
+
+    <li title="有用" data-toggle="tooltip" data-placement="top">
+            <a href="javascript:void(0)" data-name="vote_up" class="action vote-up img-circle" data-original-title="" title="">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </li>
+        <!--// vote up -->
+
+        <!--vote point -->
+        <li data-original-title="" title="">
+            <span class="vote-count">{{ question.votes }}</span>
+        </li>
+        <!--// vote point -->
+        <!-- vote down -->
+        <li title="没用" data-toggle="tooltip" data-placement="bottom" >
+            <a href="javascript:void(0)" data-name="vote_down" class="action vote-down img-circle" data-original-title="" title="">
+                <i class="fa fa-chevron-down"></i>
+            </a>
+        </li>
+        <!--// vote down -->
+    </ul>
+    <!--// vote group -->
+</div>            <!--// Vote section -->
+            <div class="col-md-9 col-xs-9 q-right-content">
+
+                <!-- admin control -->
+                <ul class="post-controls">
+                                        <li>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Edit" data-name="edit" class="post-edit action">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </li>
+                                                            <li>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Delete" data-name="delete" class="post-delete action">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </li>
+                                        <!-- Follow Action -->
+                                        <li>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Follow" data-name="follow" class="action follow">
+                            <i class="fa fa-plus-square"></i>
+                        </a>
+                    </li>
+                                        <!-- // Follow Action -->
+                    <!-- report Action -->
+                                         <li>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Report" data-name="report" class="action report">
+                            <i class="fa fa-exclamation-triangle"></i>
+                        </a>
+                    </li>
+                                        <!--// Report Action -->
+                </ul>
+                <!--// admin control -->
+                <!-- question tag -->
+                <div class="top-content">
+
+                {% if answer.user == req.user %}
+                    <span class="answered"><i class="fa fa-check"></i>您已回答</span>
+                {% endif %}
+                <ul class="question-tags">
+                    {% tags_for_object question as tag_list %}
+                    {% for tag in tag_list %}
+                        <li><a class="q-tag" href="#">{{ tag }}</a></li>
+                    {% endfor %}
+                </ul>
+
+                </div>
+                <!--// question tag -->
+                <div class="clearfix"></div>
+
+                <div class="question-content">
+                    <p>
+                        {{ question.content  | safe }}
+                    </p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 col-xs-8 question-cat">
+                        <a href="{% url 'qa:user_center' question.user %}">
+                            <span class="author-avatar">
+                                <img src="{{ MEDIA_URL }}{{question.user.avatar}}" class="avatar" alt="">                            </span>
+                            <span class="author-name">{{ question.user }}</span>
+                        </a>
+                        <span title="1517" class="user-badge" style="background-color:#780978;">Professor</span>
+                        <span class="question-time">
+                            {{ question.inputtime }} 发表在                        </span>
+                        <span class="question-category">
+                                            <a href="#">{{ question.category }}</a>
+                                        </span>                    </div>
+                    <div class="col-md-4 col-xs-4 question-control">
+                        <ul>
+                            <li>
+                                <a class="share-social">
+                                    Share <i class="fa fa-share"></i>
+                                </a>
+                            </li>
+                            <!-- <li class="collapse">
+                                <a href="javascript:void(0)">
+                                    Report <i class="fa fa-flag"></i>
+                                </a>
+                            </li> -->
+                            <li>
+                                <a href="#">
+                                    Comment(0)  <i class="fa fa-comment"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="comments-container collapse" id="container_78">
+                    <div class="comments-wrapper">
+                                            </div>
+                            <a class="add-comment" data-id="78" href="javascript:void(0)" data-original-title="" title="">Add Comment</a>
+        <div class="clearfix"></div>
+        <form class="child-reply" method="POST">
+            <input type="hidden" name="qa_nonce" value="12fc24a3db">
+            <input type="hidden" name="comment_post_ID" value="78">
+            <input type="hidden" name="comment_type" value="question">
+            <input type="hidden" name="user_id" value="11">
+            <div id="editor_wrap_78" class="child-answer-wrap collapse">
+                <div class="wp-editor-container">
+                    <textarea name="post_content" id="insert_answer_78"></textarea>
+                </div>
+                <div class="row submit-wrapper">
+                    <div class="col-md-3 col-xs-3">
+                        <button id="submit_reply" class="btn-submit">
+                            Add comment                     </button>
+                    </div>
+                    <div class="col-md-9 col-xs-9">
+                        <a href="javascript:void(0)" class="hide-comment">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form><!-- END SUBMIT FORM COMMENT -->
+
+                    </div><!-- END COMMENTS CONTAINER -->
+            </div>
+        </div><!-- END QUESTION-MAIN-CONTENT -->
+
+        
+                <div class="sticky-wrapper" style="height: 45px;"><div class="sticky-wrapper"><div class="row answers-filter" id="answers_filter">
+            <div class="max-col-md-8">
+                <div class="col-md-6 col-xs-6">
+                    <span class="answers-count"><span class="number">
+                        {{ answer_count }}</span>个回答</span>
+                </div>
+                <div class="col-md-6 col-xs-6 sort-questions">
+                    <ul>
+                        <li>
+                            <a class="active" href="saved_resource.html">Votes</a>
+                        </li>
+                        <!-- <li>
+                            <a class="" href="/demo/qaengine/blog/question/how-to-become-a-billionaire-in-the-next-5-years/?sort=active">Active</a>
+                        </li> -->
+                        <li>
+                            <a class="" href="#">Oldest</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div></div></div>
+
+            <!-- ANSWERS LOOP -->
+<div id="answers_main_list">
+
+<!--评论列表循环部分-->
+
+{% for answer in answer_list %}
+<div class="row question-main-content question-item answer-item" id="80">
+    <div class="col-md-2 col-xs-2 vote-block">
+    <!-- vote group -->
+    <ul>
+    <!-- vote up -->
+    <li title="" data-original-title="This is useful.">
+            <a href="javascript:void(0)" data-name="vote_up" class="action vote-up img-circle" data-original-title="" title="">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </li>
+        <!--// vote up -->
+
+        <!--vote point -->
+        <li data-original-title="" title="">
+            <span class="vote-count">1</span>
+        </li>
+        <!--// vote point -->
+        <!-- vote down -->
+        <li title="" data-original-title="This is not useful">
+            <a href="javascript:void(0)" data-name="vote_down" class="action vote-down img-circle" data-original-title="" title="">
+                <i class="fa fa-chevron-down"></i>
+            </a>
+        </li>
+        <!--// vote down -->
+    </ul>
+    <!--// vote group -->
+</div>
+<div class="col-md-9 col-xs-9 q-right-content">
+    <!-- control tool for admin, moderate -->
+    <ul class="post-controls">
+                <li>
+            <a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Edit" data-name="edit" class="post-edit action">
+                <i class="fa fa-pencil"></i>
+            </a>
+        </li>
+                        <li>
+            <a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Delete" data-name="delete" class="post-delete action">
+                <i class="fa fa-trash-o"></i>
+            </a>
+        </li>
+                         <li>
+         <a href="javascript:void(0);" data-toggle="tooltip" data-original-title="Report" data-name="report" class="action report">
+              <i class="fa fa-exclamation-triangle"></i>
+        </a>
+        </li>
+             </ul>
+    <!--// control tool for admin, moderate -->
+    <div class="top-content">
+                    </div>
+    <div class="clearfix"></div>
+
+    <div class="question-content">
+        <p><span style="color: #545454;font-family: Helvetica, arial, sans-serif;font-size: 16px;font-style: normal;font-variant: normal;font-weight: normal;letter-spacing: normal;line-height: 25px;text-align: left;text-indent: 0px;float: none;background-color: #ffffff">{{ answer.answer_content }}</span></p>
+    </div>
+
+    <div class="post-content-edit collapse">
+        <form class="edit-post">
+            <input type="hidden" name="qa_nonce" value="93b029f311">
+            <div class="wp-editor-container">
+                <textarea name="post_content" id="edit_post_80"></textarea>
+            </div>
+            <div class="row submit-wrapper">
+                <div class="col-md-2 col-xs-2">
+                    <button id="submit_reply" class="btn-submit">Update</button>
+                </div>
+                <div class="col-md-2 col-xs-2">
+                    <a href="javascript:void(0);" data-name="cancel-post-edit" class="action cancel-edit-post" data-original-title="" title="">
+                        Cancel                    </a>
+                </div>
+            </div>
+        </form>
+    </div><!-- END EDIT POST FORM -->
+
+    <div class="row cat-infomation">
+        <!-- Answer owner infomation -->
+        <div class="col-md-8 col-xs-8 question-cat">
+            <a href="{% url 'qa:user_center' answer.user %}">
+                <span class="author-avatar">
+                    <img src="{{ MEDIA_URL }}{{ answer.user.avatar }}" class="avatar" alt="">                </span>
+                <span class="author-name">{{ answer.user }}</span>
+            </a>
+
+             
+                <span title="525" class="user-badge" style="background-color:#ffbf00;">Vice Professor</span>
+                <span class="question-time">{{ answer.answer_time }}</span>
+        </div>
+        <!--// Answer owner infomation -->
+
+        <div class="col-md-4 col-xs-4 question-control">
+            <!-- share comment , report -->
+            <ul>
+                <li>
+                    <a class="share-social" href="javascript:void(0);" data-toggle="popover" data-placement="top" data-container="body">
+                        Share <i class="fa fa-share"></i>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="javascript:void(0)">
+                        Report <i class="fa fa-flag"></i>
+                    </a>
+                </li> -->
+                <!-- comment count -->
+                <li>
+                    <a href="#">
+                        Comment(0)  <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--// share comment , report -->
+    </div>
+    <div class="clearfix"></div>
+    <div class="comments-container collapse" id="container_80">
+        <div class="comments-wrapper">
+                </div>
+
+                <a class="add-comment" data-id="80" href="javascript:void(0)" data-original-title="" title="">Add Comment</a>
+        <div class="clearfix"></div>
+        <form class="child-reply" method="POST">
+            <input type="hidden" name="qa_nonce" value="12fc24a3db">
+            <input type="hidden" name="comment_post_ID" value="80">
+            <input type="hidden" name="comment_type" value="answer">
+            <input type="hidden" name="user_id" value="11">
+            <div id="editor_wrap_80" class="child-answer-wrap collapse">
+                <div class="wp-editor-container">
+                    <textarea name="post_content" id="insert_answer_80"></textarea>
+                </div>
+                <div class="row submit-wrapper">
+                    <div class="col-md-3 col-xs-3">
+                        <button id="submit_reply" class="btn-submit">
+                            Add comment                     </button>
+                    </div>
+                    <div class="col-md-9 col-xs-9">
+                        <a href="javascript:void(0)" class="hide-comment">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form><!-- END SUBMIT FORM COMMENT -->  
+    </div>
+</div>
+</div>
+{% endfor %}
+
+
+
+
+<!--评论列表循环部分end-->                     
+</div>
+    <!-- ANSWERS LOOP -->
+    <div class="row paginations collapse">
+        <div class="col-md-12">
+                    </div>
+    </div><!-- END PAGINATIONS -->
+    
+        
+        <div class="row form-reply">
+            <div class="col-md-12">
+                <h3>您的回答</h3>
+                <form id="form_reply" method="POST" action="{% url 'qa:answer_post' %}">
+                    {% csrf_token %}
+                    {{ answer_Form.answer_content }}
+                       {{ answer_Form.question }}
+                    <div class="row submit-wrapper">
+                        <div class="col-md-2">
+                            <button id="submit_reply" class="btn-submit" type="submit">
+                                提交答案
+                            </button>
+                        </div>
+                        <div class="col-md-10 term-texts">
+                            By posting your answer, you agree to the <a target="_blank" href="#">privacy policy</a> and <a target="_blank" href="#">terms of service.</a>                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- END FORM REPLY -->
+
+        <div class="clearfix"></div>
+
+        
+        
+    </div>
+<!-- -->
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        //赞成票
+        // jQuery('[data-toggle="tooltip"]').tooltip();
+        jQuery('.vote-block ul li a.vote-up').click(function(){
+            // jQuery(this).parent().next().find('.vote-count').html(parseInt(jQuery(this).parent().next().find('.vote-count').html()) + 1);
+            var vote = jQuery(this).parent().next().find('.vote-count')
+            jQuery.get("{% url 'qa:vote' question.id %}",function(question_vote){
+                vote.text(question_vote);
+           })
+        });
+        //反对票
+        jQuery('.vote-block ul li a.vote-down').click(function(){
+            jQuery(this).parent().prev().find('.vote-count').html(parseInt(jQuery(this).parent().prev().find('.vote-count').html()) - 1);
+        });
+
+       
+
+
+    });
+</script>
+
+<!--变动区代码结束 -->
+
+<!--右侧right.html -->
+    {% include "qa/right.html" %}
+<!--right.html结束 -->
+
+{% endblock main %}

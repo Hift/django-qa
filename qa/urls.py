@@ -16,6 +16,8 @@ urlpatterns = [
 	url(r'^ask', ask , name = 'ask'),
 	# 用户url
 	url(r'^usercenter/(?P<username>\w+)' , user_center ,name = 'user_center'),
+	# 所有用户
+	url(r'^user$' ,user_all , name='user_all'),
 	# 提交回答
 	url(r'^answer', answer_post, name = 'answer_post'),	
 	# 答案列表

@@ -397,11 +397,17 @@
             var vote = jQuery(this).parent().next().find('.vote-count')
             jQuery.get("{% url 'qa:vote' question.id %}",function(question_vote){
                 vote.text(question_vote);
-           })
+                jQuery('.vote-block ul li a.vote-up').addClass('active')
+
+           });
         });
         //反对票
         jQuery('.vote-block ul li a.vote-down').click(function(){
-            jQuery(this).parent().prev().find('.vote-count').html(parseInt(jQuery(this).parent().prev().find('.vote-count').html()) - 1);
+            var vote_down = jQuery(this).parent().prev().find('.vote-count')
+            jQuery.get("{% url 'qa:vote' question.id %}?down=1",function(question_vote){
+                vote_down.text(question_vote);
+            });
+            
         });
 
        

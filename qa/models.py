@@ -10,6 +10,7 @@ class User(AbstractUser):
 	qq = models.CharField(u'QQ',max_length = 20,null=True,blank=True,)
 	tel = models.CharField(u'手机',max_length = 11,null=True,blank=True,unique=True)
 	avatar = models.FileField(upload_to='avatar/%Y/%m',default='avatar/default.png',max_length = 200,null=True,blank=True,verbose_name='头像')
+	points = models.IntegerField(verbose_name='分数',default=0)
 	class Meta:
 		verbose_name = '用户'
 		verbose_name_plural = verbose_name

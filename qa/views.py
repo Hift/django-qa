@@ -15,7 +15,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.hashers import make_password
 # --tagging--
 from tagging.models import Tag,TaggedItem
-
+import hashlib
 def global_setting(req):
 	SITE_URL = settings.SITE_URL
 	MEDIA_URL = settings.MEDIA_URL
@@ -104,14 +104,21 @@ def tag(req):
 
 # -----投票功能实现-----
 def vote(req,question_id):
-	if req.session.get('has_voted',False):
+	inputtime = Question.objects.get(id=question_id).inputtime
+	hash_id = hashlib.sha1(str(inputtime)).hexdigest()
+	if hash_id in str(req.COOKIES.get(question_id)):
 		return HttpResponse('您已投票')
-	question = get_object_or_404(Question,pk=question_id)
-	question_vote = question.votes + 1
-	question.votes = question_vote
-	question.save()
-	req.session['has_voted'] = True
-	return HttpResponse(question_vote)
+	else:
+		question = get_object_or_404(Question,pk=question_id)
+		if req.GET.get('down'):
+			question_vote = question.votes - 1
+		else:
+			question_vote = question.votes + 1
+		question.votes = question_vote
+		question.save()
+		res = HttpResponse(question_vote)
+		res.set_cookie(question_id,value=hash_id)
+		return res
 # -----提问问题页面-----
 def ask(req):
 	if req.method == 'POST':
@@ -128,6 +135,9 @@ def ask(req):
 											)
 			
 			question.save()
+			user = User.objects.get(username=req.user)
+			user.points += 5
+			user.save()
 
 			return HttpResponseRedirect('/')
 	else:
@@ -157,6 +167,12 @@ def detail(req,question_id):
 
 	return render(req, 'qa/detail.html', locals())
 
+# -----所有用户-----
+def user_all(req):
+	user_all = User.objects.all()
+	return render(req,'qa/user.html',locals())
+
+
 # -----用户中心-----
 def user_center(req,username):
 	question_user = User.objects.get(username=username)
@@ -165,7 +181,7 @@ def user_center(req,username):
 	user_question_count = Question.objects.filter(user__exact = question_user).count()
 	# 问题答案数的计数
 	user_answer_count = Answer.objects.filter(user__exact = question_user).count()
-	return render(req,'qa/user.html',locals())
+	return render(req,'qa/usercenter.html',locals())
 
 # -----答案列表-----
 def user_answer(req,username):

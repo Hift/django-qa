@@ -1,6 +1,11 @@
+
+
 {% load tagging_tags %}
 <!--一个问题的完整列--> 
 {% load endless %}
+
+{% if latest_question_list %}
+    
 
 {% paginate  latest_question_list %}
 {# {% if latest_question_list %} #}
@@ -41,11 +46,11 @@
     </div>
     <div class="col-md-4 col-xs-4 q-right-content">
         <ul class="question-statistic">
-            <li><span class="question-views">60</span>views</li>
+            <li><span class="question-views">60</span>浏览</li>
 
             <li {% for answer in question.answer_set.all %}{% if answer.user == req.user %}class="active"{% endif %}{% endfor %}><span class="question-answers">{{ question.answer_set.all.count }}</span>答案</li>
             
-            <li><span class="question-votes">{{ question.votes }}</span>votes</li>
+            <li><span class="question-votes">{{ question.votes }}</span>票数</li>
         </ul>
     </div><!-- end right content -->
 </li>
@@ -54,5 +59,12 @@
 
 {% endfor %}
 {% show_more %}
+{% endif %}
+
+
+<!--这个显示的是该用户没有回答的问题-->
+
+
+
 
 {# {% endif %}   #}

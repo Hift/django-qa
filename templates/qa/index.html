@@ -39,12 +39,8 @@
             <div class="col-md-2 hidden-xs hidden-sm">
                 <span class="q-f-title">所有问题</span>
             </div><!-- END TITLE -->
-            <div class="col-md-5 col-sm-6 col-xs-6">
-                <ul class="q-f-sort">
-                    <li><a class="active" href="{% static 'css/问答系统.html">最新</a></li>
-                    <li><a class="" href="#">最热</a></li>
-                    <li><a class="" href="#">待回答</a></li>
-                </ul><!-- END FILTER -->
+            <div class="col-md-5 col-sm-6 col-xs-6" id="to_add_list1">
+<!-- END FILTER -->
             </div>
                 <div class="col-md-5 col-sm-6 col-xs-6 categories-wrapper">
                         <div class="select-categories-wrapper" id="to_add1">
@@ -55,11 +51,11 @@
             </div>
         </div>
         <div class="row question-filter" id="question_filter">
-            <div class="col-md-6 col-xs-6 sort-questions">
-                <ul>
-                    <li><a class="active" href="{% static 'css/问答系统.html">最新</a></li>
-                    <li><a class="" href="#">最热</a></li>
-                    <li><a class="" href="#">待回答</a></li>
+            <div class="col-md-6 col-xs-6 sort-questions" id="to_add_list2">
+                <ul class="q-f-sort" id="list_remove">
+                    <li><a class="active" href="javascript:void(0);" id="latest">最新</a></li>
+                    <li><a class="" href="javascript:void(0);" id="hot">最热</a></li>
+                    <li><a class="" href="javascript:void(0);" id="unanswer">待回答</a></li>
                 </ul>
             </div>
 
@@ -94,13 +90,27 @@
             var hh = jQuery(document).scrollTop();
 
             console.log(hh)
-            jQuery('#main_questions_list').animate({Top:-100},1000);
-            
+            jQuery('#main_questions_list').animate({Top:-100},1000);      
         });
+
     });
 
 </script>
 
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery(".sort-questions ul li a").click(function(){
+
+            jQuery(this).addClass('active');
+            // 获取除了该元素之外的其他元素
+            //此处的a并没有同级元素，要先获取他的父级元素，从父级元素的同级元素再找到a
+            jQuery(this).parent().siblings().children().attr("class"," ");
+            var val = jQuery(this).attr("id");
+            // 注意代码的简化，此处用了.attr就省去了那么多的if判断
+            jQuery("#main_questions_list").load("{% url 'qa:index_ajax' %}" + '?' + val + '=' + 1);
+        });
+    });
+</script>
 
 <!-- END MAIN-PAGINATIONS -->
         <div class="clearfix"></div>

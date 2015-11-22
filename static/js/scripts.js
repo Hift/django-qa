@@ -12,10 +12,12 @@ jQuery(document).ready(function(jQuery) {
 			//console.log('aaa');
 			if(direction == "down"){
 				jQuery('#p_change').appendTo('#to_add1');
+				jQuery('#list_remove').appendTo('#to_add_list1')
 				jQuery('#q_filter_waypoints').fadeIn();
 			}
 			else{
 				jQuery('#p_change').appendTo('#to_add2');
+				jQuery('#list_remove').appendTo('#to_add_list2')
 				jQuery('#q_filter_waypoints').fadeOut('fast');
 			}	
 		}, { offset: 0 });

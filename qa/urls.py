@@ -4,6 +4,8 @@ from qa.views import *
 
 urlpatterns = [
 	url(r'^$' , index ,name = 'index'),
+	# 首页最新，最热，未回答
+	url(r'^index_ajax$' , index_ajax , name = "index_ajax"),
 	# url(r'^',views.register , name = 'register'),
 	url(r'^(?P<question_id>[0-9]+)/$' , detail, name = 'detail'),
 	# 注册url

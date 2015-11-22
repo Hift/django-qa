@@ -22,7 +22,7 @@ def global_setting(req):
  	# 所有问题的计数
  	question_count = Question.objects.all().count()
  	# 所有答案的计数
- 	answer_count = Answer.objects.all().count()
+ 	user_count = User.objects.all().count()
  	# category查询表单
 	category_Form = CategoryForm()
  	return locals()
@@ -66,6 +66,21 @@ def index(
         template = page_template
     return render_to_response(
         template, context, context_instance=RequestContext(request))	
+
+# -----首页最新，最热，未回答-----
+@csrf_exempt
+def index_ajax(req):
+	if req.GET.get('hot'):
+		latest_question_list = Question.objects.order_by('-votes').all()
+	elif req.GET.get('unanswer'):
+		user = req.user
+		latest_question_list = Question.objects.exclude(answer__user = user).all()
+		# latest_question_list = Question.objects.order_by('-inputtime').all()
+	else:
+		latest_question_list = Question.objects.order_by('-inputtime').all()
+	return render(req,"qa/index_ajax.html",locals())
+
+
 @csrf_exempt
 def category(
         request,
@@ -204,6 +219,9 @@ def answer_post(req):
 										answer_time = strftime("%Y-%m-%d %H:%M:%S", gmtime()),
 			)
 		answer.save()
+		user = User.objects.get(username=req.user)
+		user.points += 5
+		user.save()
 	return redirect(req.META['HTTP_REFERER'])
 
 # -- 用户注销 --
